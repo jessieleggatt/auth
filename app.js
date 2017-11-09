@@ -9,6 +9,16 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs');
 
+    //Authentication module.
+    var auth = require('http-auth');
+    var basic = auth.basic({
+    	realm: "auth-db",
+    	file: __dirname + "/public/data/passwords"
+    });
+    
+    console.log(basic);
+    
+
 var app = express();
 
 var db;
@@ -41,6 +51,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/style', express.static(path.join(__dirname, '/views/style')));
+app.use(auth.connect(basic));
 
 // development only
 if ('development' == app.get('env')) {
