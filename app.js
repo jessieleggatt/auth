@@ -103,6 +103,7 @@ initDBConnection();
 
 app.get('/', routes.index);
 
+
 function createResponseData(id, name, value, attachments) {
 
     var responseData = {
